@@ -1,22 +1,26 @@
 var express = require('express');
-
 const app = express();
+var router = express.Router()
+var path = require('path')
+var mysql = require('mysql')
+
+var connection = mysql.createConnection({
+    host     : '35.189.176.97',
+    port     : 3306,
+    user     : 'root',
+    password : 'root',
+    database : 'jsman'
+}); //잘모르겠다
+
+connection.connect();
+
+router.get('/' , function(req,res){
+    console.log('get join url')
+    res.sendFile(path.join(__dirname, '/index.html'))
+})
+
+module.exports = router;
 
 app.get('//users_data', (req,res) => {
     return res.json(users);
 })
-
-let users = [
-    {
-        id: 1,
-        birth: "2000.01.23" 
-    },
-    {
-        id: 2,
-        birth: "1989.09.12" 
-    },
-    {
-        id: 1,
-        birth: "1997.04.15" 
-    }
-]
